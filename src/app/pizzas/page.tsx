@@ -20,7 +20,7 @@ export default function Pizza() {
     </div>
   }
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-4 h-full">
       {
         pizzas?.map(c=>(<PizzaItem key={c._id} pizza={c}/>))
       }
