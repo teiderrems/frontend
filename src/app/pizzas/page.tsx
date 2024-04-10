@@ -4,14 +4,26 @@ import { useEffect, useState } from "react";
 import { IPizza } from "../clients/page";
 import Axios from "@/axios.config";
 import PizzaItem from "@/components/PizzaItem";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Pizza() {
   const [pizzas,setPizza]=useState<IPizza[]>([]);
   const [error,setError]=useState<String>();
-  const getPizzas=async()=>await Axios.get("pizzas");
-
+  const router=useRouter();
+  const getPizzas=async()=>await Axios.get("pizzas",{
+    headers:{
+        "Authorization":localStorage.getItem("token")?"Bearer "+localStorage.getItem("token"):undefined
+    }
+  });
+  const pathname=usePathname();
   useEffect(()=>{
-    getPizzas().then(res=>res.data).then(data=>setPizza(data)).catch(err=>setError(err.message));
+    getPizzas().then(res=>res.data).then(data=>setPizza(data)).catch(err=>{
+      setError(err.message);
+      if ((err.message as string).includes("401")) {
+        router.push(`/clients/auth?url=${pathname}`);
+      }
+    }
+    );
   },[]);
 
   if (error) {
@@ -20,7 +32,7 @@ export default function Pizza() {
     </div>
   }
   return (
-    <div className="flex flex-wrap gap-4 h-full">
+    <div className="flex mx-3 md:flex-row flex-col gap-3 flex-wrap mt-6  h-full">
       {
         pizzas?.map(c=>(<PizzaItem key={c._id} pizza={c}/>))
       }

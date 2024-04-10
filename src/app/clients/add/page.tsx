@@ -25,7 +25,7 @@ export default function AddClient() {
         }
         <div className='flex md:flex-row mb-10 mt-10 flex-col w-full'>
           <label htmlFor="name" className='w-1/4'> Username</label>
-          <input type="text" id='name' placeholder='entrer votre username' required className='flex-1 h-14 rounded-md pl-2 shadow-md shadow-blue-400' onChange={(e)=>setUsername(e.target.value)} />
+          <input type="text" id='name' minLength={4} maxLength={5} placeholder='entrer votre username' required className='flex-1 h-14 rounded-md pl-2 shadow-md shadow-blue-400' onChange={(e)=>setUsername(e.target.value)} />
         </div>
         <div className='flex md:flex-row mb-10 flex-col w-full'>
           <label htmlFor="email" className='w-1/4'> Email</label>

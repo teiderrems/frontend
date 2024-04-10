@@ -38,9 +38,9 @@ body{
 }
 
 .active{
-  @apply bg-blue-500 text-white shadow-inner shadow-blue-950 w-full
+  @apply bg-blue-400 text-white shadow-inner shadow-blue-100 w-full
 }
 
 .link{
-  @apply rounded-sm w-full px-2 text-gray-200 text-2xl
+  @apply rounded-sm w-full hover:border hover:bg-slate-400 hover:rounded-xl shadow-inner shadow-white px-2 text-black text-2xl font-medium
 }

@@ -2,6 +2,7 @@
 
 import Axios from "@/axios.config";
 import ClientItem from "@/components/ClientItem";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface IPizza{
@@ -26,10 +27,22 @@ interface IClient{
 export default function Client() {
   const [clients,setClient]=useState<IClient[]>([]);
   const [error,setError]=useState<String>();
-  const getClients=async()=>await Axios.get("clients");
+  const pathname=usePathname();
+  const getClients=async()=>await Axios.get("clients",{
+    headers:{
+        "Authorization":localStorage.getItem("token")?"Bearer "+localStorage.getItem("token"):undefined
+    }
+  });
+
+  const router=useRouter();
 
   useEffect(()=>{
-    getClients().then(res=>res.data).then(data=>setClient(data)).catch(err=>setError(err.message));
+    getClients().then(res=>res.data).then(data=>setClient(data)).catch(err=>{
+      setError(err.message);
+      if ((err.message as string).includes("401")) {
+        router.push(`/clients/auth?url=${pathname}`);
+      }
+    });
   },[]);
 
   if (error) {
@@ -38,7 +51,7 @@ export default function Client() {
     </div>
   }
   return (
-    <div className="flex gap-4 flex-wrap">
+    <div className="flex gap-4 flex-wrap mt-10">
       {
         clients?.map(c=>(<ClientItem key={c._id} client={c}/>))
       }
