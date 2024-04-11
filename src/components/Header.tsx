@@ -21,8 +21,8 @@ export default function Header() {
               <Link href="/orders" className={`link ${pathname==='/orders'?'active':''}`}>Orders</Link>
           </nav>
             ):(<nav className="flex md:gap-6 gap-4 py-2">
-                <Link href="/pizzas" className={`link ${pathname==='/clients/add'?'active':''}`}>Register</Link>
-                <Link href="/clients" className={`link ${pathname==='/clients/auth'?'active':''}`}> Log In</Link>
+                <Link href="/auth/add" className={`link ${pathname==='/auth/add'?'active':''}`}>Register</Link>
+                <Link href="/auth" className={`link ${pathname==='/auth'?'active':''}`}> Log In</Link>
             </nav>)
         }
         {
