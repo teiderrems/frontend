@@ -40,7 +40,7 @@ export default function Client() {
     getClients().then(res=>res.data).then(data=>setClient(data)).catch(err=>{
       setError(err.message);
       if ((err.message as string).includes("401")) {
-        router.push(`/clients/auth?url=${pathname}`);
+        router.push(`/auth?url=${pathname}`);
       }
     });
   },[]);

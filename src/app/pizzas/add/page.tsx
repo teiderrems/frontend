@@ -1,8 +1,7 @@
 "use client"
 import Axios from '@/axios.config';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { FormEvent, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation';
+import React, { FormEvent, useLayoutEffect, useState } from 'react'
 
 export default function Add() {
 
@@ -12,11 +11,25 @@ export default function Add() {
   const [price, setPrice] = useState(0.0);
   const [description, setDescription] = useState("");
   const navigate = useRouter();
+  const pathname=usePathname();
+  const [token,setToken]=useState(localStorage.getItem("token"));
+  useLayoutEffect(()=>{
+    if (!token) {
+      navigate.push(`/auth?url=${pathname}`);
+    }
+  },[]);
   const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     Axios.post("pizzas", { name: name, description: description, price: price }).then(res => {
       navigate.push("/pizzas");
-    }).catch(err => setError(err.message));
+    }).catch(err => {
+      if((err.message as string).includes("401")){
+        localStorage.removeItem("token");
+        setError(err.message);
+        navigate.push(`/auth?url=${pathname}`);
+      }
+      setError(err.message);
+    });
   }
 
   return (
@@ -39,9 +52,8 @@ export default function Add() {
           <label htmlFor="price" className='w-1/4'> Price</label>
           <input type="number" id='price' min={0.90} required className='flex-1 h-14 rounded-md shadow-md  pl-2 shadow-blue-400' onChange={(e) => setPrice(parseInt(e.target.value))} />
         </div>
-        <div className='flex justify-around mb-2'>
-          {(name == "" || description.length < 6) ? (<button type="submit" disabled className='w-1/4 hover:bg-blue-400 h-16 rounded-md bg-blue-200'>Add</button>) : (<button type="submit" className='w-1/4 hover:bg-blue-600 h-16 rounded-md bg-blue-400'>Add</button>)}
-          <p className='text-center'>You have account <a href="/clients/auth">Sign Up</a></p>
+        <div className='flex justify-start mb-2'>
+          {(name == "" || description.length < 6) ? (<button type="submit" disabled className='w-1/4 hover:bg-blue-400 h-16 rounded-md bg-blue-200'>Add</button>) : (<button type="submit" className='w-1/4 hover:bg-blue-600 h-16 rounded-md bg-blue-400'>Add</button>)} 
         </div>
       </form>
     </div>
