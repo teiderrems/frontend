@@ -35,6 +35,7 @@ body{
   margin: 0%;
   padding: 0%;
   box-sizing: border-box;
+  background: whitesmoke;
 }
 
 .active{
@@ -42,5 +43,5 @@ body{
 }
 
 .link{
-  @apply rounded-full px-2 w-full border hover:border-slate-400 hover:rounded-xl shadow-inner shadow-white text-black text-2xl font-medium
+  @apply px-2 w-full hover:rounded-full hover:shadow-inner hover:shadow-white text-black text-2xl font-medium
 }

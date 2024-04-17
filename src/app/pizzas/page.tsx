@@ -46,12 +46,14 @@ export default function Pizza() {
   }
 
   if (error) {
-    <div className="flex flex-col justify-center items-center text-red-400">
-      <p className="text-wrap text-xl rounded-md border-1 border-gray-400">{error}</p>
-    </div>
+    return(
+      <div className="flex flex-col justify-center items-center text-red-400">
+        <p className="text-wrap text-xl rounded-md border-1 border-gray-400">{error}</p>
+      </div>
+    )
   }
   return (
-    <div className="container mx-auto my-auto h-full">
+    <div className="container mx-auto w-full my-auto min-h-screen">
       <nav className="flex flex-col mt-3 justify-center w-full">
         <Link href={`/pizzas/add`} className={`self-end w-14 text-center rounded-full border hover:bg-blue-500 ${pathname === `/pizzas/add` ? 'active' : ''}`}><PlusOutlined className="" /></Link>
       </nav>

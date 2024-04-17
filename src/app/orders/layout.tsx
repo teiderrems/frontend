@@ -1,15 +1,11 @@
-import SideBar from '@/components/SideBar'
-import React from 'react'
-//import RootLayout from '../layout';
 
 export default function PizzaLayout({children}: Readonly<{
     children: React.ReactNode;
   }>) {
   return (
-    <div className="flex text-2xl flex-row min-h-screen w-full">
-        <div className='min-h-screen md:w-1/6 bg-gradient-to-tr from-green-400 to-cyan-400'><SideBar base="orders"/></div>
-        <main className="flex-1 md:absolute md:left-52 md:right-4">
-            {children}
+    <div className="flex text-xl flex-col h-full w-full">
+        <main className="flex-1 container mx-auto">
+           {children}
         </main>
     </div>
   )

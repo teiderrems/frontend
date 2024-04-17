@@ -18,7 +18,7 @@ export default function AddClient() {
   return (
     <div className="flex flex-col min-h-screen justify-center items-center">
 
-      <form onSubmit={(e) => HandleSubmit(e)} className='flex flex-col rounded-md justify-center px-4 bg-gray-100 w-3/5 h-3/5'>
+      <form onSubmit={(e) => HandleSubmit(e)} className='flex flex-col rounded-md justify-center px-4 bg-white w-3/5 h-3/5'>
         <h1 className=' capitalize text-2xl text-gray-500 pt-2'>Register client</h1>
         {
           error && <p className='text-red-500 text-wrap text-sm rounded-md w-full py-3'>{error}</p>

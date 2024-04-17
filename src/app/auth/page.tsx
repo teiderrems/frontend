@@ -29,14 +29,14 @@ export default function page() {
     },[routeUrl]);
   return (
     <div className="flex flex-col min-h-screen justify-center items-center">
-      <form onSubmit={(e)=>HandleSubmit(e)} className='flex flex-col rounded-md justify-center px-4 bg-gray-100 w-3/5 h-3/5'>
+      <form onSubmit={(e)=>HandleSubmit(e)} className='flex flex-col rounded-md justify-center px-4 bg-white w-3/5 h-3/5'>
         <h1 className=' capitalize text-2xl text-gray-500 pt-2'>Login client</h1>
         {
           error&& <p className='text-red-500 text-wrap text-sm rounded-md w-full py-3'>{error}</p>
         }
         <div className='flex md:flex-row mb-10 mt-10 flex-col w-full'>
           <label htmlFor="name" className='w-1/4 md:self-center'> Username</label>
-          <input type="text" id='name' minLength={4} maxLength={5} placeholder='enter your username or your email ' required className='flex-1 h-14 rounded-md pl-2 shadow-md shadow-blue-400' onChange={(e)=>setUsername(e.target.value)} />
+          <input type="text" id='name' minLength={4} placeholder='enter your username or your email ' required className='flex-1 h-14 rounded-md pl-2 shadow-md shadow-blue-400' onChange={(e)=>setUsername(e.target.value)} />
         </div>
         <div className='flex md:flex-row flex-col w-full'>
           <label htmlFor="firstname" className='w-1/4 md:self-center md:-translate-y-8'>Password</label>
