@@ -1,7 +1,7 @@
 "use client"
 import Axios from '@/axios.config';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { FormEvent, useLayoutEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useLayoutEffect, useState } from 'react'
 
 export default function Add() {
 
@@ -12,7 +12,10 @@ export default function Add() {
   const [description, setDescription] = useState("");
   const navigate = useRouter();
   const pathname=usePathname();
-  const [token,setToken]=useState(localStorage.getItem("token"));
+  const [token,setToken]=useState("");
+  useEffect(()=>{
+    setToken(localStorage.getItem("token") as string);
+  },[]);
   useLayoutEffect(()=>{
     if (!token) {
       navigate.push(`/auth?url=${pathname}`);
@@ -23,7 +26,7 @@ export default function Add() {
     Axios.post("pizzas", { name: name, description: description, price: price }).then(res => {
       navigate.push("/pizzas");
     }).catch(err => {
-      if((err.message as string).includes("401")){
+      if(err.response.status==401){
         localStorage.removeItem("token");
         setError(err.message);
         navigate.push(`/auth?url=${pathname}`);

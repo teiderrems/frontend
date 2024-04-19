@@ -9,7 +9,12 @@ export default function PizzaDetail() {
 
     const param=useParams();
     const getPizza=async()=>await Axios.get(`pizzas/${param.id}`);
-    const [pizza,setPizza]=useState({});
+    const [pizza,setPizza]=useState<{
+             name:string;
+             price?:number;
+             description:string;
+            _id:string;
+         }>();
     const [error,setError]=useState();
     let piz={};
     const[loaging,setLoading]=useState(false);
@@ -20,7 +25,6 @@ export default function PizzaDetail() {
             setLoading(!loaging);
         })
         .catch(err=>setError(err.message));
-        
     },[error]);
 
     if (error || !loaging) {

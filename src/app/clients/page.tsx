@@ -39,7 +39,8 @@ export default function Client() {
   useEffect(()=>{
     getClients().then(res=>res.data).then(data=>setClient(data)).catch(err=>{
       setError(err.message);
-      if ((err.message as string).includes("401")) {
+      if (err.response.status==401) {
+        localStorage.removeItem("token");
         router.push(`/auth?url=${pathname}`);
       }
     });
@@ -51,7 +52,7 @@ export default function Client() {
     </div>
   }
   return (
-    <div className="flex gap-4 flex-wrap mt-10">
+    <div className=" container my-5 flex gap-4 flex-wrap">
       {
         clients?.map(c=>(<ClientItem key={c._id} client={c}/>))
       }

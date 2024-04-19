@@ -3,7 +3,7 @@ import Axios from "@/axios.config";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react"
 
-export default function page() {
+export default function Login() {
     const[routeUrl,setUrl]=useState<string>();
     const router=useRouter();
     const query=useSearchParams();
@@ -17,6 +17,7 @@ export default function page() {
       .then(res=>res.data)
       .then(data=>{
         localStorage.setItem("token",data.token);
+        localStorage.setItem("id",JSON.parse(atob(localStorage?.getItem("token")?.split(".")[1] as string))._id);
         router.push(routeUrl??"/");
       }).catch(err=>{
         setError(err.message);
